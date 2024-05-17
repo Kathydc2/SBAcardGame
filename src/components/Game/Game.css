@@ -1,0 +1,26 @@
+.header{
+    /* border:solid red; */
+    margin-top: 1%;
+    margin-bottom: 0%;
+  }
+  .gameContainer{
+    border: solid green;
+    
+  }
+  .btnContainer{
+    border:solid red;
+    
+  }
+  .gameBoard{
+    border: solid blue;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .gameBtn{
+    margin-right:1em
+  }
+  .displayName{
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
