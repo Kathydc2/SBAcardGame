@@ -3,10 +3,17 @@
     margin-top: 1%;
     margin-bottom: 0%;
   }
+  h2{
+    background-color: #C85C5C;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+  }
   .gameBoard{
     border:solid black;
     border-radius: 1cm;
-    background-color: green;
+    background-color: #0B4619;
+    background-image: url(https://freepngimg.com/save/32491-cross-sword/612x792);
+    background-size: 25%;
     height:45vh;
     margin: 1em;
     padding: 1cm;
@@ -21,9 +28,33 @@
     margin-top: 1em;
     height:5vh
   }
-  .gameBtn{
-    margin-right:1em
-  }
+
+.gameBtn{
+  cursor: pointer;
+  margin-left: 1%;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  border-style: double;
+  font-weight: 600;
+  background-image: linear-gradient(
+  rgb(54, 53, 53),
+  rgb(0, 0, 0),
+  rgb(54, 54, 54)
+  );
+  color: rgb(164, 164, 162);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-color: rgb(0, 0, 0);
+  transition: 400ms;
+}
+      
+.gameBtn:hover {
+  transition: 400ms;
+  border-style: double;
+  border-color: rgb(208, 207, 207);
+  color: rgb(219, 216, 216);
+  font-size: 14px;
+  text-shadow: 1px 10px 5px rgb(61, 61, 61);
+}
   .displayName{
     /* border:solid black; */
     text-decoration: underline;
@@ -32,9 +63,9 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 .placeHolder{
-  border:10px solid green;
+  border:10px solid #0B4619;
   border-radius: 1em;
-  margin-top: 4em;
+  margin-top: 4.5em;
   height:36vh;
   width:14vw
 }

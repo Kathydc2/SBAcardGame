@@ -1,9 +1,9 @@
 import React, {useContext, useState}from 'react';
 import { GameContext } from '../../App';
-import "./Player.css"
+import "./Header.css"
 
 
-export default function Player() {
+export default function Header() {
   const playername = useContext(GameContext)
   const { playerName, setPlayerName } = playername
   const [showInput, setShowInput] = useState(true);
@@ -17,12 +17,14 @@ export default function Player() {
   };
 
   return (
-    <div className="playerContainer">
-      <h1>Welcome to the Card Playing Game</h1>
+    <div className="headerContainer">
+      <h1 className='title'>War Card Game</h1>
       {showInput && (
-        <div className='nameInput'>
+        <div>
           <input
+            class="nameInput"
             type="text"
+            name="text"
             placeholder="Enter your name"
             onChange={(e) => handleNameChange(e.target.value)}
           />

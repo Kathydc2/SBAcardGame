@@ -1,0 +1,65 @@
+.title{
+    font-size: 28pt;
+    color: #0B4619
+}
+.submitBtn{
+    cursor: pointer;
+    margin:1em;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    border-style: double;
+    font-weight: 600;
+    background-image: linear-gradient(
+      rgb(54, 53, 53),
+      rgb(0, 0, 0),
+      rgb(54, 54, 54)
+    );
+    color: rgb(164, 164, 162);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-color: rgb(0, 0, 0);
+    transition: 400ms;
+}
+      
+.submitBtn:hover {
+    transition: 400ms;
+    border-style: double;
+    border-color: rgb(208, 207, 207);
+    color: rgb(219, 216, 216);
+    font-size: 14px;
+    text-shadow: 1px 10px 5px rgb(61, 61, 61);
+}
+.nameInput {
+    max-width: 180px;
+    margin-left: 2%;
+    margin-bottom: 1%;
+    background-color: #121212;
+    border: 0px solid;
+    box-shadow: 1px 1px 1px 1px rgb(131, 133, 129),
+      -1px -1px 1px 1px rgb(100, 100, 100);
+    border-radius: 4px;
+    padding: 10px;
+    color: whitesmoke;
+    caret-color: white;
+    outline: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+  
+.nameInput:focus {
+    background-color: #222;
+    border: 1.5px solid rgb(189, 189, 189);
+}
+  
+.nameInput:hover {
+    box-shadow: 1px 1px 1px 1px rgb(149, 151, 147),
+      -1px -1px 1px 1px rgb(124, 124, 124);
+}
+  
+.nameInput:hover::placeholder {
+    color: #999999;
+}
+  
+.nameInput::placeholder {
+    color: #727272;
+}
+

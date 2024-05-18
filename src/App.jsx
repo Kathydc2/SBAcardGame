@@ -1,6 +1,6 @@
 import './App.css';
 import React , { useState, createContext} from 'react';
-import Player from './components/Player/Player';
+import Header from './components/Header/Header';
 import Card from './components/Card/Card'
 
 
@@ -13,7 +13,7 @@ export default function App() {
   return (
     <div className="App">
       <GameContext.Provider value={{ playerName, setPlayerName}}>
-        <Player/>
+        <Header/>
         <Card playerCards={playerCards} computerCards={computerCards} setPlayerCards={setPlayerCards} setComputerCards={setComputerCards} />
       </GameContext.Provider>
     </div>

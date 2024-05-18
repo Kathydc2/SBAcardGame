@@ -35,14 +35,14 @@ export default function Card() {
       const cards = await fetchCardData();
       const playerCards = cards.slice(0, 26);
       const computerCards = cards.slice(26);
-      // console.log('Distributed Player Cards:', playerCards); // Log player cards
+      // console.log('Distributed Player Cards:', playerCards); 
       // console.log('Distributed Computer Cards:', computerCards);
       setPlayerCards(playerCards);
       setComputerCards(computerCards);
-      setLoading(false); // Set loading to false when cards are distributed
+      setLoading(false); //false when cards are distributed
     } catch (error) {
       console.error('Error distributing card data:', error);
-      setLoading(false); // Set loading to false in case of error
+      setLoading(false); // false in case of error
     }
   };
 
