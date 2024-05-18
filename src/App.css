@@ -1,11 +1,9 @@
-.App {
-  border:solid black;
-  text-align: center;
-  height:96vh
+body{
+  background-color: green;
 }
-
-.nameInput{
-  border:solid red
+.App {
+  background-color: green;
+  text-align: center;
 }
 
 

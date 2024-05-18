@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import { API_DECK_OF_CARDS } from '../../data/api';
-import './Card.css';
 import Game from '../Game/Game';
 
 const fetchCardData = async () => {
   try {
-    const response = await fetch(API_DECK_OF_CARDS);
-    if (!response.ok) {
-      throw new Error('Failed to fetch card data');
+    // Fetch full deck of cards
+    const responseDeck = await fetch(API_DECK_OF_CARDS);
+    if (!responseDeck.ok) {
+      throw new Error('Failed to fetchCardData');
     }
-    const data = await response.json();
-    console.log(data.cards); // Log the cards data
-    return data.cards;
+    const deckData = await responseDeck.json();
+    const deckId = deckData.deck_id;
+
+    // Fetch individual cards using the deck ID
+    const responseCards = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=52`);
+    if (!responseCards.ok) {
+      throw new Error('Failed to fetchDeckId');
+    }
+    const cardsData = await responseCards.json();
+    return cardsData.cards;
   } catch (error) {
     console.error('Error fetching card data:', error);
     throw error;
@@ -21,43 +28,41 @@ const fetchCardData = async () => {
 export default function Card() {
   const [playerCards, setPlayerCards] = useState([]);
   const [computerCards, setComputerCards] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   const distributeCards = async () => {
     try {
       const cards = await fetchCardData();
       const playerCards = cards.slice(0, 26);
       const computerCards = cards.slice(26);
+      // console.log('Distributed Player Cards:', playerCards); // Log player cards
+      // console.log('Distributed Computer Cards:', computerCards);
       setPlayerCards(playerCards);
       setComputerCards(computerCards);
+      setLoading(false); // Set loading to false when cards are distributed
     } catch (error) {
       console.error('Error distributing card data:', error);
+      setLoading(false); // Set loading to false in case of error
     }
   };
 
   useEffect(() => {
     distributeCards();
   }, []);
+  useEffect(() => {
+    // console.log('playerCards in Card:', playerCards);
+    // console.log('computerCards in Card:', computerCards);
+  }, [playerCards, computerCards]);
 
   return (
     <div className='cardContainer'>
-      <Game playerCards={playerCards} computerCards={computerCards} />
-      {/* <div>
-        <h2>Player Cards</h2>
-        <ul>
-          {playerCards.map((card, index) => (
-            <li key={index}>{card.value} of {card.suit}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2>Computer Cards</h2>
-        <ul>
-          {computerCards.map((card, index) => (
-            <li key={index}>{card.value} of {card.suit}</li>
-          ))}
-        </ul> */}
-      </div>
+      {loading ? (
+        <p>Loading...</p> 
+      ) : (
+        <Game playerCards={playerCards} computerCards={computerCards} setPlayerCards={setPlayerCards} />
+      )}
     </div>
   );
 }
+
 

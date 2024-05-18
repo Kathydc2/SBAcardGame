@@ -1,20 +1,20 @@
 import './App.css';
 import React , { useState, createContext} from 'react';
-import Game from './components/Game/Game';
 import Player from './components/Player/Player';
+import Card from './components/Card/Card'
 
 
 export const GameContext = createContext();
 export default function App() {
-  const [playerName, setPlayerName] = useState('');
+  const [playerName, setPlayerName] = useState('Player');
+  const [playerCards, setPlayerCards] = useState([]);
+  const [computerCards, setComputerCards] = useState([]);
 
   return (
     <div className="App">
-      
       <GameContext.Provider value={{ playerName, setPlayerName}}>
         <Player/>
-      
-        <Game />
+        <Card playerCards={playerCards} computerCards={computerCards} setPlayerCards={setPlayerCards} setComputerCards={setComputerCards} />
       </GameContext.Provider>
     </div>
   );

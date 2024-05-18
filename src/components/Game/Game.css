@@ -3,18 +3,22 @@
     margin-top: 1%;
     margin-bottom: 0%;
   }
-  .gameContainer{
-    border: solid green;
-    
-  }
-  .btnContainer{
-    border:solid red;
-    
-  }
   .gameBoard{
-    border: solid blue;
+    /* border:solid black; */
+    background-color: green;
+    height:50vh;
+    margin: 2em;
+    padding: 2cm;
     display: flex;
     justify-content: space-evenly;
+  }
+
+  .nameBoard{
+    /* border: solid blue; */
+    display: flex;
+    justify-content: space-evenly;
+    /* margin-top: 1em; */
+    height:5vh
   }
   .gameBtn{
     margin-right:1em
@@ -24,3 +28,11 @@
     font-weight: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
+.placeHolder{
+  border:10px solid green;
+  border-radius: 1em;
+  margin-top: 4em;
+  height:36vh;
+  width:14vw
+}
+ 
