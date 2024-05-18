@@ -59,7 +59,7 @@ export default function Card() {
       {loading ? (
         <p>Loading...</p> 
       ) : (
-        <Game playerCards={playerCards} computerCards={computerCards} setPlayerCards={setPlayerCards} />
+        <Game playerCards={playerCards} computerCards={computerCards} setPlayerCards={setPlayerCards} setComputerCards={setComputerCards} />
       )}
     </div>
   );

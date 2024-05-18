@@ -4,27 +4,30 @@
     margin-bottom: 0%;
   }
   .gameBoard{
-    /* border:solid black; */
+    border:solid black;
+    border-radius: 1cm;
     background-color: green;
-    height:50vh;
-    margin: 2em;
-    padding: 2cm;
+    height:45vh;
+    margin: 1em;
+    padding: 1cm;
     display: flex;
     justify-content: space-evenly;
   }
 
   .nameBoard{
-    /* border: solid blue; */
+    border: solid blue;
     display: flex;
     justify-content: space-evenly;
-    /* margin-top: 1em; */
+    margin-top: 1em;
     height:5vh
   }
   .gameBtn{
     margin-right:1em
   }
   .displayName{
-    font-size: 16pt;
+    /* border:solid black; */
+    text-decoration: underline;
+    font-size: 18pt;
     font-weight: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
@@ -35,4 +38,16 @@
   height:36vh;
   width:14vw
 }
- 
+
+.scoreBoard h1 {
+  /* border: solid black; */
+  margin: 1em;
+  text-decoration: underline;
+}
+.scoreBoard p {
+  /* border: solid red; */
+  font-size: 16pt;
+  font-weight: bold;
+  margin: 0%;
+  padding: 5px; 
+}
