@@ -10,7 +10,25 @@ const initialState = {
   cardsRemaining: 52,
   playerCards: [], 
   computerCards: [],
+  war: false,
 };
+
+const getValue = (value) => {
+  // convert the values with strings into numbers
+  switch (value) {
+    case 'ACE':
+      return 14;
+    case 'KING':
+      return 13;
+    case 'QUEEN':
+      return 12;
+    case 'JACK':
+      return 11;
+    default:
+      return parseInt(value);
+  }
+};
+
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -22,10 +40,54 @@ const reducer = (state, action) => {
         currentCardIndex: state.currentCardIndex + 1,
         cardsRemaining: state.cardsRemaining - 1,
       };
-    default:
-      return state;
-  }
-};
+      case 'DECLAREWAR':
+        console.log("War declared...");
+        return {
+          ...state,
+          war: true,
+        };
+        case 'RESOLVEWAR':
+          console.log("Resolving war...");
+          console.log("Current index:", state.currentCardIndex);
+          console.log("Player cards length:", state.playerCards.length);
+          console.log("Computer cards length:", state.computerCards.length);
+
+          const currentCardIndex = typeof state.currentCardIndex === 'number' ? state.currentCardIndex : 0;
+          const playerCards = state.playerCards.slice(state.currentCardIndex, state.currentCardIndex + 4);
+          const computerCards = state.computerCards.slice(state.currentCardIndex, state.currentCardIndex + 4);
+    
+          if (playerCards.length < 4 || computerCards.length < 4) {
+            console.log("Not enough cards for war");
+            return state; // Not enough cards for war
+          }
+    
+          const playerFourthCardValue = getValue(playerCards[3].value);
+          const computerFourthCardValue = getValue(computerCards[3].value);
+    
+          let newPlayerScore = state.playerScore;
+          let newComputerScore = state.computerScore;
+    
+          if (playerFourthCardValue > computerFourthCardValue) {
+            newPlayerScore += 8;
+          } else if (playerFourthCardValue < computerFourthCardValue) {
+            newComputerScore += 8;
+          }
+
+          console.log("New scores:", newPlayerScore, newComputerScore);
+    
+          return {
+            ...state,
+            playerScore: newPlayerScore,
+            computerScore: newComputerScore,
+            currentCardIndex: state.currentCardIndex + 4,
+            cardsRemaining: state.cardsRemaining - 4,
+            war: false,
+          };
+        default:
+          return state;
+      }
+    };;
+  
 
 
 
@@ -35,14 +97,16 @@ export default function Game({ playerCards = [], computerCards = [], setComputer
   const [gameStarted, setGameStarted] = useState(false);
   const [cardsRemaining, setCardsRemaining] = useState(52);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, {...initialState, playerCards,computerCards});
   const [gameResult, setGameResult] = useState("");
 
-
   useEffect(() => {
-    // console.log("Received playerCards in Game.jsx", playerCards);
-    // console.log("Received computerCards in Game.jsx", computerCards);
-  }, [playerCards, computerCards]);
+    if (state.war) {
+      setTimeout(() => {
+        dispatch({ type: 'RESOLVEWAR' });
+      }, 2000); // Wait for the animation to complete
+    }
+  }, [state.war]);
 
   const drawCard = () => {
     if (gameStarted && cardsRemaining > 0) {
@@ -60,19 +124,21 @@ export default function Game({ playerCards = [], computerCards = [], setComputer
         playerScore += 1;
       } else if (playerCardValue < computerCardValue) {
         computerScore += 1;
+      }else {
+        // If the card values are equal, declare war
+        dispatch({ type: 'DECLAREWAR' });
+        return;
       }
 
       dispatch({ type: 'UPDATESCORE', playerScore, computerScore });
-
       setCurrentCardIndex(currentCardIndex + 1);
-      setCardsRemaining(cardsRemaining - 1);
 
       if (currentCardIndex + 1 >= playerCards.length || currentCardIndex + 1 >= computerCards.length) {
         endGame();
       }
     }
-
   };
+
 
   const endGame = () => {
     setGameStarted(false);
@@ -87,7 +153,7 @@ export default function Game({ playerCards = [], computerCards = [], setComputer
     }
     setTimeout(() => {
       window.location.reload();
-    }, 3000);
+    }, 2000);
   };
 
   const newGame = () => {
@@ -95,21 +161,6 @@ export default function Game({ playerCards = [], computerCards = [], setComputer
     window.location.reload();
   };
 
-  const getValue = (value) => {
-    // convert the values with strings into numbers
-    switch (value) {
-      case 'ACE':
-        return 14;
-      case 'KING':
-        return 13;
-      case 'QUEEN':
-        return 12;
-      case 'JACK':
-        return 11;
-      default:
-        return parseInt(value);
-    }
-  };
 
   return (
     <div className='gameContainer'>
@@ -119,10 +170,7 @@ export default function Game({ playerCards = [], computerCards = [], setComputer
         <button className='gameBtn' onClick={() => { setGameStarted(true); drawCard(); }}>Draw Card</button>
         <button className='gameBtn' onClick={endGame}>End Game</button>
       </div>
-      {/* <div className='nameBoard'>
-        <div className='displayName'>{playerName}</div>
-        <div className='displayName'>Computer</div>
-      </div> */}
+  
           <div className='scoreBoard'>
             <h1>Score</h1>
             <p>{playerName}: {state.playerScore}</p>
@@ -138,7 +186,14 @@ export default function Game({ playerCards = [], computerCards = [], setComputer
               <img src={playerCards[currentCardIndex].image} alt={`Player's Card`} />
             )}
           </div>
-          <hr></hr>
+          {state.war && (
+        <div className='warCards'>
+          <img className="warCard" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="placeholder" />
+          <img className="warCard" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="placeholder" />
+          <img className="warCard" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="placeholder" />
+          </div>
+          )}
+          {/* <hr></hr> */}
           <div>
             <h2>Computer's Card</h2>
             {computerCards.length > 0 && currentCardIndex < computerCards.length && (

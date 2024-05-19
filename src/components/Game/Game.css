@@ -4,12 +4,12 @@
     margin-bottom: 0%;
   }
   h2{
-    background-color: #C85C5C;
+    background-color: brown;
     border-radius: 5px;
     padding: 5px 10px 5px 10px;
   }
   .gameBoard{
-    border:solid black;
+    /* border:solid black; */
     border-radius: 1cm;
     background-color: #0B4619;
     background-image: url(https://freepngimg.com/save/32491-cross-sword/612x792);
@@ -19,14 +19,7 @@
     padding: 1cm;
     display: flex;
     justify-content: space-evenly;
-  }
-
-  .nameBoard{
-    border: solid blue;
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 1em;
-    height:5vh
+    box-shadow: 0 0 15px 7px black; 
   }
 
 .gameBtn{
@@ -55,24 +48,36 @@
   font-size: 14px;
   text-shadow: 1px 10px 5px rgb(61, 61, 61);
 }
-  .displayName{
-    /* border:solid black; */
-    text-decoration: underline;
-    font-size: 18pt;
-    font-weight: bold;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
-.placeHolder{
-  border:10px solid #0B4619;
-  border-radius: 1em;
-  margin-top: 4.5em;
-  height:36vh;
-  width:14vw
+.displayName{
+  /* border:solid black; */
+  text-decoration: underline;
+  font-size: 18pt;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
+.placeHolder{
+  /* border:10px solid #0B4619; */
+  border-radius: 1em;
+  margin-top: 5em;
+  height:36vh;
+  width:13vw;
+  filter: contrast(70%) hue-rotate(-10deg);
+}
+.scoreBoard{
+  /* border:solid black; */
+  background-color: brown;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width:19vw;
+  margin-left: 43.8em;
+  box-shadow: 0 0 10px 4px black; 
+}
 .scoreBoard h1 {
   /* border: solid black; */
-  margin: 1em;
+  margin: 0;
+  margin-bottom: 1%;
   text-decoration: underline;
 }
 .scoreBoard p {
@@ -80,5 +85,42 @@
   font-size: 16pt;
   font-weight: bold;
   margin: 0%;
-  padding: 5px; 
+}
+.warCards {
+  position: relative;
+  display: flex;
+}
+
+.warCard {
+  position: relative;
+  margin-left: 0;
+  margin-right: 0;
+  top: 0;
+  border-radius: 1em;
+  margin-top: 5em;
+  height: 36vh;
+  width: 12vw;
+  filter: contrast(70%) hue-rotate(-10deg);
+  animation: moveCard 1s ease-in-out infinite;
+}
+
+.warCard:nth-child(1) {
+  left: 25%;
+  z-index: 2;
+}
+
+.warCard:nth-child(2) {
+  left:-5%;
+  z-index: 2;
+}
+
+.warCard:nth-child(3) {
+  left: -34%;
+  z-index: 3;
+}
+
+@keyframes moveCard {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(50px); }
+  100% { transform: translateX(0); }
 }

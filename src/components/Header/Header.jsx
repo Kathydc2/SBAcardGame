@@ -17,7 +17,7 @@ export default function Header() {
   };
 
   return (
-    <div className="headerContainer">
+    <div className='headerContainer'>
       <h1 className='title'>War Card Game</h1>
       {showInput && (
         <div>
