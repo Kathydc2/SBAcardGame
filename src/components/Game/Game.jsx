@@ -8,6 +8,7 @@ const initialState = {
   computerScore: 0,
   gameStarted: false,
   cardsRemaining: 52,
+  currentCardIndex: 0, // Initialize currentCardIndex
   playerCards: [], 
   computerCards: [],
   war: false,
@@ -52,6 +53,7 @@ const reducer = (state, action) => {
           console.log("Player cards length:", state.playerCards.length);
           console.log("Computer cards length:", state.computerCards.length);
 
+
           const currentCardIndex = typeof state.currentCardIndex === 'number' ? state.currentCardIndex : 0;
           const playerCards = state.playerCards.slice(state.currentCardIndex, state.currentCardIndex + 4);
           const computerCards = state.computerCards.slice(state.currentCardIndex, state.currentCardIndex + 4);
@@ -79,7 +81,7 @@ const reducer = (state, action) => {
             ...state,
             playerScore: newPlayerScore,
             computerScore: newComputerScore,
-            currentCardIndex: state.currentCardIndex + 4,
+            currentCardIndex: currentCardIndex + 4,
             cardsRemaining: state.cardsRemaining - 4,
             war: false,
           };
@@ -111,8 +113,8 @@ export default function Game({ playerCards = [], computerCards = [], setComputer
   const drawCard = () => {
     if (gameStarted && cardsRemaining > 0) {
 
-      const playerCard = playerCards[currentCardIndex];
-      const computerCard = computerCards[currentCardIndex];
+      const playerCard = playerCards[state.currentCardIndex];
+      const computerCard = computerCards[state.currentCardIndex];
 
       const playerCardValue = getValue(playerCard.value);
       const computerCardValue = getValue(computerCard.value);
