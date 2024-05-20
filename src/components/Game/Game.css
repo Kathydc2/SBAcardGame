@@ -20,6 +20,8 @@
     display: flex;
     justify-content: space-evenly;
     box-shadow: 0 0 15px 7px black; 
+    position: relative;
+
   }
 
 .gameBtn{
@@ -86,12 +88,12 @@
   font-weight: bold;
   margin: 0%;
 }
-.animation {
+.cardAnimation {
   position: relative;
   display: flex;
 }
 
-.warAnimate{
+.warAnimate {
   position: relative;
   margin-left: 0;
   margin-right: 0;
@@ -101,31 +103,44 @@
   height: 36vh;
   width: 12vw;
   filter: contrast(70%) hue-rotate(-10deg);
-  animation: moveCard 1s ease-in-out infinite;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 .warAnimate:nth-child(1) {
   left: 25%;
   z-index: 2;
+  animation-name: moveCardFromLeft; 
+  animation-delay: 0s; 
 }
 
 .warAnimate:nth-child(2) {
-  left:-5%;
+  left: -5%;
   z-index: 2;
+  animation-name: moveCardFromRight; 
+  animation-delay: 0.5s;
 }
 
 .warAnimate:nth-child(3) {
   left: -34%;
   z-index: 3;
+  animation-name: moveCardFromLeft;
+  animation-delay: 1s; 
 }
 
-@keyframes moveCard {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(50px); }
-  100% { transform: translateX(0); }
+@keyframes moveCardFromLeft {
+  0% { transform: translateX(-100vw); opacity: 0; } 
+  50% { transform: translateX(10px); opacity: 1; } 
+  100% { transform: translateX(0); opacity: 1; } 
+}
+
+@keyframes moveCardFromRight {
+  0% { transform: translateX(100vw); opacity: 0; } 
+  50% { transform: translateX(-10px); opacity: 1; }
+  100% { transform: translateX(0); opacity: 1; } 
 }
 .warContainer {
-  /* border: solid white; */
   display: flex;
   position: relative; 
   justify-content: space-between;

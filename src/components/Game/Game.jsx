@@ -73,6 +73,7 @@ const reducer = (state, action) => {
           ...state,
           warMessage: "Not enough cards for war",
           war: false,
+          gameEnded: true, // this isnt triggered
         };
       }
 
@@ -116,11 +117,17 @@ const reducer = (state, action) => {
         warMessage: null,
         war: false,
       };
+    case 'END_GAME':
+        return {
+            ...state,
+            gameEnded: true,
+            gameResult: action.gameResult,
+        };
     default:
-      return state;
-  }
+        return state;
+}
 };
-
+   
 export default function Game({ playerCards = [], computerCards = []}) {
   const playername = useContext(GameContext);
   const { playerName } = playername;
@@ -143,7 +150,7 @@ export default function Game({ playerCards = [], computerCards = []}) {
     if (state.warMessage) {
       timeoutId = setTimeout(() => {
         dispatch({ type: 'CLEARWARMESSAGE' });
-      }, 2000);
+      }, 3000);
   
       return () => clearTimeout(timeoutId);
     }
@@ -201,11 +208,14 @@ export default function Game({ playerCards = [], computerCards = []}) {
       endResult = "It's a Tie!";
     }
     setGameResult(endResult);
-    console.log("Game Result:", endResult); 
+    dispatch({ type: 'END_GAME', gameResult: endResult }); 
+    console.log("Game Result:", endResult);
     setTimeout(() => {
-      window.location.reload();
+        window.location.reload();
     }, 2000);
-  };
+};
+
+    
   
   const newGame = () => {
     window.location.reload();
@@ -223,6 +233,11 @@ export default function Game({ playerCards = [], computerCards = []}) {
         <p>{playerName}: {state.playerScore}</p>
         <p>Computer: {state.computerScore}</p>
       </div>
+      {state.gameEnded && gameResult && (
+        <div>
+        <h2>{gameResult}</h2>
+        </div>
+            )}
       <div className='gameBoard'>
         <img className="placeHolder" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="placeholder"/>
         {state.gameStarted && (
@@ -234,7 +249,7 @@ export default function Game({ playerCards = [], computerCards = []}) {
               )}
             </div>
             {state.war && (
-              <div className='animation'>
+              <div className='cardAnimation'>
                 <img className="warAnimate" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="placeholder" />
                 <img className="warAnimate" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="placeholder" />
                 <img className="warAnimate" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="placeholder" />
@@ -265,12 +280,7 @@ export default function Game({ playerCards = [], computerCards = []}) {
             </div>
           </>
         )}
-        {!state.gameStarted && state.gameResult && (
-          <div>
-            <h2>{state.gameResult}</h2>
-            {console.log("Game Result:", gameResult)}
-          </div>
-        )}
+      
         <img className="placeHolder" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="placeholder"/>
       </div>
     </div>
