@@ -39,10 +39,10 @@ export default function Card() {
       // console.log('Distributed Computer Cards:', computerCards);
       setPlayerCards(playerCards);
       setComputerCards(computerCards);
-      setLoading(false); //false when cards are distributed
+      setLoading(false); 
     } catch (error) {
       console.error('Error distributing card data:', error);
-      setLoading(false); // false in case of error
+      setLoading(false); 
     }
   };
 
